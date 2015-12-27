@@ -16,7 +16,7 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::initBuffers(){
-    // Set initial vertex positions in the Buffer Objects
+    // Set initial vertex positions to the Buffer Objects
     ofVec4f verts[3] = {
         ofVec4f(0, 24, 0, 1.0),
         ofVec4f(24, 48, 0, 1.0),
@@ -33,8 +33,8 @@ void ofApp::initBuffers(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    // Use transform feedback to update the Buffer Object
-    glEnable(GL_RASTERIZER_DISCARD); // disable screen rendering
+    // Render Vbo enabling transform feedback
+    glEnable(GL_RASTERIZER_DISCARD); // Disable screen rendering - Only need transform feedback results
     feedbackShader.begin();
     glBeginTransformFeedback(GL_POINTS);
     vbo.draw(GL_POINTS, 0, 3);
@@ -49,8 +49,8 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::pingPong() {
     int feedbackTargetBuffer = 1 - currentAttributeBuffer;
-    vbo.setVertexBuffer(positionBuffers[currentAttributeBuffer], 4, 0); // set one of the ofBufferObject as an attribute for the vertex shader
-    glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 0, positionBuffers[feedbackTargetBuffer].getId()); // set the other ofBuffer as the target of the transform feedback
+    vbo.setVertexBuffer(positionBuffers[currentAttributeBuffer], 4, 0); // Set one of the ofBufferObject as an attribute for the vertex shader
+    glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 0, positionBuffers[feedbackTargetBuffer].getId()); // Set the other ofBuffer as the target of the transform feedback
     currentAttributeBuffer = feedbackTargetBuffer;
 }
 
